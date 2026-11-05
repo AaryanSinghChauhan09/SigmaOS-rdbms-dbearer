@@ -1,0 +1,9 @@
+[package]
+name = "sigmaos_rdbms_dbearer"
+version = "0.1.0"
+edition = "2021"
+description = "Universal database client connector supporting PostgreSQL, DuckDB, and Apache Arrow"
+
+[lib]
+name = "sigmaos_rdbms_dbearer"
+path = "src/lib.rs"
