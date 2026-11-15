@@ -58,9 +58,15 @@ pub struct DbearerConnection {
 }
 
 impl DbearerConnection {
-    pub fn new(id: impl Into<String>, engine: DbEngine, conn: impl Into<String>) -> Result<Self, DbError> {
+    pub fn new(
+        id: impl Into<String>,
+        engine: DbEngine,
+        conn: impl Into<String>,
+    ) -> Result<Self, DbError> {
         let conn_str = conn.into();
-        if conn_str.trim().is_empty() { return Err(DbError::EmptyConnectionString); }
+        if conn_str.trim().is_empty() {
+            return Err(DbError::EmptyConnectionString);
+        }
         Ok(Self {
             id: id.into(),
             engine,
@@ -74,10 +80,15 @@ impl DbearerConnection {
         Ok(())
     }
 
-    pub fn disconnect(&mut self) { self.is_connected = false; }
+    pub fn disconnect(&mut self) {
+        self.is_connected = false;
+    }
 
     pub fn execute_query(&self, _query: &str) -> QueryResult {
-        QueryResult { rows_affected: 0, execution_time_ms: 10 }
+        QueryResult {
+            rows_affected: 0,
+            execution_time_ms: 10,
+        }
     }
 }
 
@@ -87,7 +98,11 @@ pub struct ConnectionPool {
 }
 
 impl ConnectionPool {
-    pub fn new() -> Self { Self { connections: BTreeMap::new() } }
+    pub fn new() -> Self {
+        Self {
+            connections: BTreeMap::new(),
+        }
+    }
 
     pub fn add_connection(&mut self, conn: DbearerConnection) -> Result<(), DbError> {
         let id = conn.id.clone();
@@ -98,9 +113,19 @@ impl ConnectionPool {
         Ok(())
     }
 
-    pub fn get_connection(&self, id: &str) -> Option<&DbearerConnection> { self.connections.get(id) }
+    pub fn get_connection(&self, id: &str) -> Option<&DbearerConnection> {
+        self.connections.get(id)
+    }
 
-    pub fn connection_count(&self) -> usize { self.connections.len() }
+    pub fn connection_count(&self) -> usize {
+        self.connections.len()
+    }
+}
+
+impl Default for ConnectionPool {
+    fn default() -> Self {
+        Self::new()
+    }
 }
 
 #[cfg(test)]
