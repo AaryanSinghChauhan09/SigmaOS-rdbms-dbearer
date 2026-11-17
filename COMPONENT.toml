@@ -3,7 +3,7 @@ name = "SigmaOS-rdbms-dbearer"
 tier = 3
 stability = "stable"
 language = "rust"
-description = "Universal database client connector supporting PostgreSQL, DuckDB, and Apache Arrow"
+description = "No GitHub description is set; component scope remains unclassified."
 upstream = []
 
 [contract]
